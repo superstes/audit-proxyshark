@@ -1156,7 +1156,8 @@ class DissectedPacket(object):
             # this exception can be caused by 'int()' or '[0]'
             self.stream = None
         # retrieve packet attributes from the description
-        regex = r'^.*(\d+\.\d+) +([^ ]+) +-> +([^ ]+) +([^ ]+) +[^ ]+ +(.*)$'
+        # regex = r'^.*(\d+\.\d+) +([^ ]+) +-> +([^ ]+) +([^ ]+) +[^ ]+ +(.*)$'
+        regex = r'.*?(\d+\.\d+)\s*((?:[0-9]{1,3}\.){3}[0-9]{1,3}).*?((?:[0-9]{1,3}\.){3}[0-91,3})\s*([A-Z]{3,20})\s*(.*)'  # might be problematic in edge-cases
         findings = r(regex).findall(description)
         if not findings or len(findings[0]) != 5:
             raise ValueError("invalid packet description %s"
@@ -1670,6 +1671,10 @@ class DissectedPacket(object):
                 # get alternative pretty value (can be None)
                 item_showname = item.get('showname')
                 # add a new field to the item list
+                if type(item_show) == 'unicode':
+		            item_show = item_show.encode('utf8')
+                if type(item_showname) == 'unicode':
+                    item_showname = item_showname.encode('utf8')
                 if item_showname:
                     attributes = FieldValue({
                                    'name'    : item_name,
