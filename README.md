@@ -1,3 +1,6 @@
+# Check out my documentation for this tool: https://wiki.superstes.eu/en/latest/1/network/proxyshark.html
+
+
 #Proxyshark (powered by [CONIX Cybersecurity](http://www.conix.fr))
 
 *This document is based on the current development version of proxyshark and
